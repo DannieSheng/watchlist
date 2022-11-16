@@ -22,9 +22,9 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    user = User.query.first() # read all users' records
+    # user = User.query.first() # read all users' records
     movies = Movie.query.all() #
-    return render_template('index.html', name=user, movies=movies)
+    return render_template('index.html', movies=movies)
 
 @app.route('/user/<name>')
 def user_page(name):
@@ -92,3 +92,13 @@ def forge():
         db.session.add(movie)
     db.session.commit()
     click.echo('Done')  # 输出提示信息
+
+@app.errorhandler(404)  # 传入要处理的错误代码
+def page_not_found(e):  # 接受异常对象作为参数
+    user = User.query.first()
+    return render_template('404.html'), 404  # 返回模板和状态码
+
+@app.context_processor
+def inject_user():  # 函数名可以随意修改
+    user = User.query.first()
+    return dict(user=user)  # 需要返回字典，等同于 return {'user': user}
