@@ -17,6 +17,7 @@ else:  # 否则使用四个斜线
 
 
 app = Flask(__name__)
+
 # for SQLite, the format is: sqlite:////数据库文件的绝对地址 -> app.root_path
 app.config['SQLALCHEMY_DATABASE_URI'] = prefix + os.path.join(app.root_path, 'data.db')
 app.config['SECRET_KEY'] = 'dev'  # 等同于 app.secret_key = 'dev'
@@ -62,7 +63,7 @@ def forge():
         db.session.add(movie)
 
     db.session.commit()
-    click.echo('Done')  # 输出提示信息
+    click.echo('Done.')  # 输出提示信息
 
 
 
@@ -102,18 +103,21 @@ def index():
     if request.method == "POST":
         if not current_user.is_authenticated:
             return redirect(url_for('index'))
+
         # acquire data from form
         title = request.form.get('title')
         year = request.form.get('year')
+
         # data validation
-        if not title or not year or len(year) > 4 or len(title) > 60:
+        if not title or not year or len(year) != 4 or len(title) > 60:
             flash('Invalid input.') # send message to HTML template
             return redirect(url_for('index')) # return to home page
+
         # save data from form to database
         movie = Movie(title=title, year=year) # create record
         db.session.add(movie) # add to database session
         db.session.commit() # commit session
-        flash('Item created') # show success message
+        flash('Item created.') # show success message
         return redirect(url_for('index')) # return to home page
 
     # user = User.query.first() # read all users' records
@@ -128,6 +132,7 @@ def edit(movie_id):
     if request.method == 'POST':  # 处理编辑表单的提交请求
         title = request.form['title']
         year = request.form['year']
+
         if not title or not year or len(year) != 4 or len(title) > 60:
             flash('Invalid input.')
             return redirect(url_for('edit', movie_id=movie_id))  # 重定向回对应的编辑页面
@@ -190,20 +195,22 @@ def login():
             return redirect(url_for('login'))
 
         user = User.query.first()
+
         if user.username == username and user.validate_password(password): # check username and password
             login_user(user) # login user
             flash('Login success.')
             return redirect(url_for('index')) # redirect to home page
 
-        flash('Invalid username or password')
+        flash('Invalid username or password.')
         return redirect(url_for('login')) # redirect to login page
+
     return render_template('login.html')
 
-@app.route('/logout', methods=['GET', 'POST'])
+@app.route('/logout')
 @login_required # used to protect视图
 def logout():
     logout_user()
-    flash('Goodbye')
+    flash('Goodbye.')
     return redirect(url_for('index')) # redirect to home page
 
 
@@ -217,36 +224,14 @@ def settings():
             flash('Invalid input.')
             return redirect(url_for('settings'))
 
-        current_user.name = name
-        db.session.commit()
+        # current_user.name = name
+        # db.session.commit()
+
+        user = User.query.first()
+        user.name = name
+
         flash('Settings updated.')
         return redirect(url_for('index'))
     return render_template('settings.html')
-
-
-
-@app.route('/user/<name>')
-def user_page(name):
-    return f'User: {escape(page)}'
-
-@app.route('/')
-@app.route('/index')
-@app.route('/home')
-def hello():
-    # return 'Welcome to My Watchlist!'
-    return '<h1>Hello トトロ</h1><img src="http://helloflask.com/totoro.gif">'
-
-@app.route('/test')
-def test_url_for():
-    # 下面是一些调用示例（请访问 http://localhost:5000/test 后在命令行窗口查看输出的 URL）：
-    print(f"url for 'hello': {url_for('hello')}")  # 生成 hello 视图函数对应的 URL，将会输出：/
-    # 注意下面两个调用是如何生成包含 URL 变量的 URL 的
-    print(f"url for 'user_page': {url_for('user_page', name='dannie')}") # 输出：/user/dannie
-    print(f"url for 'user_page': {url_for('user_page', name='RC')}") # 输出：/user/RC
-    print(url_for('test_url_for'))  # 输出：/test
-    # 下面这个调用传入了多余的关键字参数，它们会被作为查询字符串附加到 URL 后面。
-    print(url_for('test_url_for', num=2))  # 输出：/test?num=2
-    return 'Test page'
-
 
 
