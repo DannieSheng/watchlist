@@ -1,2 +1,2 @@
 # watchlist
-This is the toy project described in [this book](https://helloflask.com/book/3/)
+This is a toy project using flask following the description in [this book](https://helloflask.com/book/3/)
