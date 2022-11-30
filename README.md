@@ -52,7 +52,7 @@ in templates: `get_flashed_messages()`
 表单数据验证: [WTForms](https://github.com/wtforms/wtforms)
 
 ## [用户认证](https://tutorial.helloflask.com/login/)
-`flask_login`
+`flask_login`([Flask-Login](https://flask-login.readthedocs.io/en/latest/))
 安全存储密码: Werkzeug (one of Flask's dependencies)  
 生成管理员账户: `admin` function  
 使用扩展[Flask-Login](https://github.com/maxcountryman/flask-login)实现用户认证  
@@ -61,5 +61,52 @@ in templates: `get_flashed_messages()`
 - 视图保护 (`login_required`装饰器)
 
 
+## [Reorganize](https://tutorial.helloflask.com/organize/)
+* Previous structure:
+```├── .flaskenv
+├── app.py
+├── test_watchlist.py
+├── static
+│   ├── favicon.ico
+│   ├── images
+│   │   ├── avatar.png
+│   │   └── totoro.gif
+│   └── style.css
+└── templates
+    ├── 400.html
+    ├── 404.html
+    ├── 500.html
+    ├── base.html
+    ├── edit.html
+    ├── index.html
+    ├── login.html
+    └── settings.html
+```
 
-
+* Updated structure
+```
+├── .flaskenv
+├── test_watchlist.py
+└── watchlist  # 程序包
+    ├── __init__.py      包构造文件，创建程序实例
+    ├── commands.py      命令函数
+    ├── errors.py        错误处理函数
+    ├── models.py        模型类
+    ├── views.py         视图函数 (or routes.py)
+    ├── static
+    │   ├── favicon.ico
+    │   ├── images
+    │   │   ├── avatar.png
+    │   │   └── totoro.gif
+    │   └── style.css
+    └── templates
+        ├── base.html
+        ├── edit.html
+        ├── errors
+        │   ├── 400.html
+        │   ├── 404.html
+        │   └── 500.html
+        ├── index.html
+        ├── login.html
+        └── settings.html
+```
