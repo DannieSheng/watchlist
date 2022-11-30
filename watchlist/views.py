@@ -75,11 +75,11 @@ def settings():
             return redirect(url_for('settings'))
 
         # current_user.name = name
-        # db.session.commit()
+        
 
         user = User.query.first()
         user.name = name
-
+        db.session.commit()
         flash('Settings updated.')
         return redirect(url_for('index'))
     return render_template('settings.html')
