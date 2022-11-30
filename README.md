@@ -60,6 +60,10 @@ in templates: `get_flashed_messages()`
 认证保护
 - 视图保护 (`login_required`装饰器)
 
+## [unittest]()
+
+*Working outside of application context* [solution](https://stackoverflow.com/questions/34122949/working-outside-of-application-context-flask)
+
 
 ## [Reorganize](https://tutorial.helloflask.com/organize/)
 * Previous structure:
@@ -115,3 +119,7 @@ in templates: `get_flashed_messages()`
 [python-dotenv](https://github.com/theskumar/python-dotenv)
 
 * PythonAnywhere
+
+Refer to [this method](https://help.pythonanywhere.com/pages/RebuildingVirtualenvs/) to create virtual environment on PythonAnywhere
+
+## [TODO: Leave-a-message](https://tutorial.helloflask.com/challenge/)
