@@ -1,5 +1,5 @@
 # watchlist
-This is a toy project using flask following the description in [this book](https://helloflask.com/book/3/)
+This is a toy flask project following the description in [this book](https://helloflask.com/book/3/).
 
 ## Create environment
 
@@ -110,3 +110,6 @@ in templates: `get_flashed_messages()`
         ├── login.html
         └── settings.html
 ```
+
+## [Deployment](https://tutorial.helloflask.com/deploy/)
+[python-dotenv](https://github.com/theskumar/python-dotenv)
