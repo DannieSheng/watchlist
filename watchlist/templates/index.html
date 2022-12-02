@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>{{ movies|length }} Titles</p>
+<p>{{ movies|length }} Titles</p> {# number of messages #}
 {% if current_user.is_authenticated %}
 <form method="post">
     Name <input type="text" name="title" autocompleete="off" required>

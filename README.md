@@ -8,6 +8,15 @@ This is a toy flask project following the description in [this book](https://hel
 . env/bin/activate
 ```
 
+## [Templates](https://tutorial.helloflask.com/template/)
+template rendering (模版渲染) using [Jinja2](https://jinja.palletsprojects.com/en/3.1.x/)
+`{{ ... }}`: 用来标记变量。
+`{% ... %}` 用来标记语句，比如 if 语句，for 语句等。
+`{# ... #}` 
+
+`{{ variable|filter }}`
+[Jinja2 filters](https://jinja.palletsprojects.com/en/3.0.x/templates/#builtin-filters)
+
 ## [Database](https://tutorial.helloflask.com/database/)
 [SQLAlchemy](https://www.sqlalchemy.org/)
 ```
